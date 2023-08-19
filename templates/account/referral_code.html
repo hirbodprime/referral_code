@@ -1,0 +1,7 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% comment %} {% block content %} {% endcomment %}
+    <h2>Your Referral Code</h2>
+    <p>Used Referral Count: {{ user.userprofile.used_referral_count }}</p>
+    <p>Your referral code is: {{ referral_code }}</p>
+{% comment %} {% endblock %} {% endcomment %}
