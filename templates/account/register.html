@@ -1,10 +1,278 @@
-{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% load static %}
+<!doctype html>
+<html lang="en" dir="ltr">
 
-{% comment %} {% block content %} {% endcomment %}
-  <h2>Register</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ registration_form.as_p }}
-    <button type="submit">Register</button>
-  </form>
-{% comment %} {% endblock %} {% endcomment %}
+<head>
+
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
+    <meta name="author" content="Spruko Technologies Private Limited">
+    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/images/brand/favicon.ico'%}">
+
+    <!-- TITLE -->
+    <title>Sash – Bootstrap 5 Admin & Dashboard Template</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link id="style" href="{% static '/plugins/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- STYLE CSS -->
+     <link href="{% static '/css/style.css'%}" rel="stylesheet">
+
+	<!-- Plugins CSS -->
+    <link href="{% static '/css/plugins.css'%}" rel="stylesheet">
+
+    <!--- FONT-ICONS CSS -->
+    <link href="{% static '/css/icons.css'%}" rel="stylesheet">
+
+    <!-- INTERNAL Switcher css -->
+    <link href="{% static '/switcher/css/switcher.css'%}" rel="stylesheet">
+    <link href="{% static '/switcher/demo.css'%}" rel="stylesheet">
+
+</head>
+
+<body class="app sidebar-mini ltr login-img">
+
+    <!-- BACKGROUND-IMAGE -->
+    <div class="">
+
+        <!-- GLOABAL LOADER -->
+        <div id="global-loader">
+            <img src="{% static '/images/loader.svg'%}" class="loader-img" alt="Loader">
+        </div>
+        <!-- /GLOABAL LOADER -->
+
+        <!-- PAGE -->
+        <div class="page">
+            <div class="">
+                <!-- Theme-Layout -->
+
+                <!-- CONTAINER OPEN -->
+                <div class="col col-login mx-auto mt-7">
+                    <div class="text-center">
+                        <a href="index.html"><img src="{% static '/images/brand/logo-white.png'%}" class="header-brand-img m-0" alt=""></a>
+                    </div>
+                </div>
+                <div class="container-login100">
+                    <div class="wrap-login100 p-6">
+                        {% if not request.path == '/account/signup/' %}
+                        <form class="login100-form validate-form" method="POST" action="{% url 'register_with_referral' request.resolver_match.kwargs.referral_code  %}">
+                        
+                        {% else %}
+                        <form class="login100-form validate-form" method="POST" action="{% url 'register' %}">
+                        {% endif %}
+                        
+                        {% csrf_token %}
+                            <span class="login100-form-title">
+									Registration
+								</span>
+                            <!-- Username Field -->
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                {{ form.username }}
+                                {% with username_field=form.username %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ username_field.errors|yesno:'' }}" type="username" name="username" placeholder="Username" {% if username_field.value %}value="{{ username_field.value }}"{% endif %} required>
+                                {% endwith %}
+                                
+                            </div>
+                            {% if registration_form.username.errors %}
+                                <p class="text-danger">{{ registration_form.username.errors|join:", " }}</p>
+                            {% endif %}
+                            <!-- Email Field -->
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                {{ form.email }}
+                                {% with email_field=form.email %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ email_field.errors|yesno:'' }}" type="email" name="email" placeholder="Email" {% if email_field.value %}value="{{ email_field.value }}"{% endif %} required>
+                                {% endwith %}
+                                
+                            </div>
+                            {% if registration_form.email.errors %}
+                                <p class="text-danger">{{ registration_form.email.errors|join:", " }}</p>
+                            {% endif %}
+                            <!-- Phone Number Field -->
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                {{ form.phone_number }}
+                                {% with phone_number_field=form.phone_number %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ phone_number_field.errors|yesno:'' }}" type="phone_number" name="phone_number" placeholder="Phone Number" {% if phone_number_field.value %}value="{{ phone_number_field.value }}"{% endif %} required>
+                            
+                                {% endwith %}
+                                
+                            </div>
+                            {% if registration_form.phone_number.errors %}
+                                <p class="text-danger">{{ registration_form.phone_number.errors|join:", " }}</p>
+                            {% endif %}
+                            <!-- First Name Field -->
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                {{ form.first_name }}
+                                {% with first_name_field=form.first_name %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ first_name_field.errors|yesno:'' }}" type="text" name="first_name" placeholder="First Name" {% if first_name_field.value %}value="{{ first_name_field.value }}"{% endif %} required>
+                                {% endwith %}
+                                
+                            </div>
+                            {% if registration_form.first_name.errors %}
+                                <p class="text-danger">{{ registration_form.first_name.errors|join:", " }}</p>
+                            {% endif %}
+                            <!-- Last Name Field -->
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                {{ form.last_name }}
+                                {% with last_name_field=form.last_name %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ last_name_field.errors|yesno:'' }}" type="text" name="last_name" placeholder="Last Name" {% if last_name_field.value %}value="{{ last_name_field.value }}"{% endif %} required>
+                                {% endwith %}
+                                
+                            </div>
+                            {% if registration_form.last_name.errors %}
+                                <p class="text-danger">{{ registration_form.last_name.errors|join:", " }}</p>
+                            {% endif %}
+                            <!-- Referral Code Field -->
+                            {% if not request.path == '/account/signup/'  %}
+                            <div class="wrap-input100 validate-input input-group">
+                                    <div class="wrap-input100 validate-input input-group">
+                                        <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                            <i class="mdi mdi-account" aria-hidden="true"></i>
+                                        </a>
+                                        {% with referral_code_field=form.referral_code %}
+                                            <input class="input100 border-start-0 ms-0 form-control {{ referral_code_field.errors|yesno:'' }}" type="text" name="referral_code" placeholder="Referral Code" value="{{ registration_form.referral_code.value }}"  readonly>
+                                        {% endwith %}
+                                    </div>
+                            </div>
+                            
+                            {% if registration_form.referral_code.errors %}
+                                <p class="text-danger">{{ registration_form.referral_code.errors|join:", " }}</p>
+                            {% endif %}
+
+                            
+                            <div class="wrap-input100 validate-input input-group">
+                                <div class="wrap-input100 validate-input input-group">
+                                    <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                        <i class="mdi mdi-account" aria-hidden="true"></i>
+                                    </a>
+                                    <select name="DS_NT" class="form-control" >
+                                        <option value="Networker">Networker</option>
+                                        <option value="Direct-Seller" selected>Direct-Seller</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {% if form.DS_NT.errors %}
+                                <p class="text-danger">{{ form.DS_NT.errors|join:", " }}</p>
+                            {% endif %}
+                            
+                            {% endif %}
+                            
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-lock" aria-hidden="true"></i>
+                                </a>
+                                {{ form.password1 }}
+                                {% with password1_field=form.password1 %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ password1_field.errors|yesno:'' }}" type="password" name="password1" placeholder="Password" required>
+                                
+                                {% endwith %}
+                            </div>
+                            {% if registration_form.password1.errors %}
+                                <p class="text-danger">{{ registration_form.password1.errors|join:", " }}</p>
+                            {% endif %}
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-lock" aria-hidden="true"></i>
+                                </a>
+                                {{ form.password2 }}
+                                {% with password2_field=form.password2 %}
+                                <input class="input100 border-start-0 ms-0 form-control {{ password2_field.errors|yesno:'' }}" type="password" name="password2" placeholder="Confirm Password" required>
+                                {% endwith %}
+                            </div>
+                            {% if registration_form.password2.errors %}
+                                <p class="text-danger">{{ registration_form.password2.errors|join:", " }}</p>
+                            {% endif %}
+                            {% for error in registration_form.non_field_errors %}
+                                <p class="text-danger">{{error}}</p>
+                            {% endfor %}
+                            <label class="custom-control custom-checkbox mt-4">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-label">Agree the <a href="terms.html">terms and policy</a></span>
+								</label>
+                                <div class="container-login100-form-btn">
+                                    <button type="submit" class="login100-form-btn btn-primary">
+                                        Register
+                                    </button>
+                                </div>
+                                
+                                
+                            <div class="text-center pt-3">
+                                <p class="text-dark mb-0 d-inline-flex">Already have account ?<a href="{% url 'login' %}" class="text-primary ms-1">Sign In</a></p>
+                            </div>
+                            <label class="login-social-icon"><span>Register with Social</span></label>
+                            <div class="d-flex justify-content-center">
+                                <a href="javascript:void(0)">
+                                    <div class="social-login me-4 text-center">
+                                        <i class="fa fa-google"></i>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0)">
+                                    <div class="social-login me-4 text-center">
+                                        <i class="fa fa-facebook"></i>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0)">
+                                    <div class="social-login text-center">
+                                        <i class="fa fa-twitter"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- CONTAINER CLOSED -->
+            </div>
+        </div>
+        <!-- END PAGE -->
+
+    </div>
+    <!-- BACKGROUND-IMAGE CLOSED -->
+
+    <!-- JQUERY JS -->
+    <script src="{% static '/js/jquery.min.js'%}"></script>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="{% static '/plugins/bootstrap/js/popper.min.js'%}"></script>
+    <script src="{% static '/plugins/bootstrap/js/bootstrap.min.js'%}"></script>
+
+    <!-- SHOW PASSWORD JS -->
+    <script src="{% static '/js/show-password.min.js'%}"></script>
+
+    <!-- Perfect SCROLLBAR JS-->
+    <script src="{% static '/plugins/p-scroll/perfect-scrollbar.js'%}"></script>
+
+    <!-- Color Theme js -->
+    <script src="{% static '/js/themeColors.js'%}"></script>
+
+    <!-- CUSTOM JS -->
+    <script src="{% static '/js/custom.js'%}"></script>
+
+    <!-- Custom-switcher -->
+    <script src="{% static '/js/custom-swicher.js'%}"></script>
+
+    <!-- Switcher js -->
+    <script src="{% static '/switcher/js/switcher.js'%}"></script>
+
+</body>
+
+</html>

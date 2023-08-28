@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Wallet
+from .models import WalletModel
 
+class WalletModelAdmin(admin.ModelAdmin):
+    list_display = ('user', 'balance')  # Customize displayed fields
 
-admin.site.register(Wallet)
+admin.site.register(WalletModel, WalletModelAdmin)

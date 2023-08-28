@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import home
+from .views import  dashboard_view
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('',home,name=''),
+
+    path('', RedirectView.as_view(url='dashboard/', permanent=True)),
+    path('dashboard/', dashboard_view, name='dashboard'),
+
 ]
