@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import NetworkingUserProfile
 
-# Register your models here.
+
+
+@admin.register(NetworkingUserProfile)
+class NetworkingUserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'level', 'referrer')
+    list_filter = ('level',)
+    ordering = ('level',)
